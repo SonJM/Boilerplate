@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://172.16.210.162:5432/blackbox
+    username: wbsmaster
+    password: wbsmaster

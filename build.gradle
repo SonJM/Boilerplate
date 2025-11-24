@@ -4,17 +4,22 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'kr.co.sonjm'
+group = 'kr.co.boilerplate'
 version = '0.0.1-SNAPSHOT'
-description = 'demo'
+description = 'Boilerplate - Spring Boot'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 configurations {
+    configurations {
+        configureEach {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -25,33 +30,31 @@ repositories {
 }
 
 dependencies {
-    implementation ('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // Lombok / Logger (log4j2)
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 
+    // JPA / Database(PostgreSQL)
     runtimeOnly 'org.postgresql:postgresql'
-    implementation ('org.springframework.boot:spring-boot-starter-data-jpa') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    testImplementation ('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+    // Spring Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation ('org.springframework.boot:spring-boot-starter-security') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-    implementation ('org.springframework.boot:spring-boot-starter-oauth2-client') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+    // Swagger UI (SpringDoc)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 //    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 }
